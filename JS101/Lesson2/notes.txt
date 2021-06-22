@@ -1,0 +1,29 @@
+Style Guide
+
+naming convention:
+1) for varialbes and normal functions = camelCasing
+2) for constructor functions  = PascalCasing
+3) for constant values, UPPERCASE_UNDERSCORE
+
+for code with curly braces, such as functions and if statements, starting brace on the same line
+function test() {
+ // function body 
+}
+
+if (x === 10) {
+  // if statement body
+}
+
+spaces between operators and operands to make code easier to read:
+let sum = x + 5
+
+use semicolon to end each line of code.
+
+
+calculator.js
+npm install readline-sync --save
+
+eslint
+npm install eslint eslint-cli babel-eslint --save-dev
+npx eslint -v
+touch .eslintrc.yml  --> paste the eslint code there

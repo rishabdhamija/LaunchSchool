@@ -1,0 +1,5 @@
+github flavored markdown (for forums)
+-> read compatibility chart 
+
+q) find anagrams 
+PEDAC

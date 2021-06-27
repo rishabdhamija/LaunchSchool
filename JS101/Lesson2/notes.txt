@@ -27,3 +27,143 @@ eslint
 npm install eslint eslint-cli babel-eslint --save-dev
 npx eslint -v
 touch .eslintrc.yml  --> paste the eslint code there
+
+
+explicit type coercion:
+1) Number() -> to convert strings to numbers (returns NaN if not able to convert)
+let one  = Number('1')
+typeof one --> "number"
+
+Number("cat") --> NaN
+Number('') ==> 0
+Number(true) --> 1
+Number(false) --> 0
+
+parseInt() (strings to integers) and parseFloat() (convert strings to floating point numbers)
+parseInt('12') = 12
+parseInt('12.4') = 12
+parseInt('12er') = 12
+parseInt('+12rf') = 12
+Number('12er') = NaN
+
+parseInt( string, radix) --> radix = base of the number of the string
+parseInt('10101' , 2) = 21 (in decimal base 10)
+
+parseFloat('12.2 grams') = 12.2
+parseFloat('12 grams') = 12
+parseInt('12 grams') = 12
+
+
+unary operators + and - 
++"" --> 0
++'1' --> 1
++[] --> 0
++'abc' --> NaN
+
+toString() --> works on all except null and undefined
+
+let number = 42;
+number.toString() --> this is valid
+
+42.toString() --> this is invalid since JS interprets . as decimal dot
+solution: 
+1) (42).toString()
+2) 42..toString()
+
+true.toString() --> 'true'
+false.toString() --> 'false'
+
+Array.prototype.toString() method: --> treats null and undefined as empty values
+[1,2,3].toString() = '1,2,3'
+[1,null,2,undefined,3].toString() = '1,,2,,3'
+
+let obj = {
+  a: 'foo',
+  b: 'bar'
+}
+obj.toString() --> [object object]  (not that useful)
+
+Note: string() method works similar to toString() method with one major difference
+1) toString() does not work with undefined and null
+2) string() function returns 'undefined' and 'null' for undefined and null
+  string(undefined) = 'undefined'
+  string(null) = 'null'
+
+Template Literals (String interpolation)
+${variable} --> type coercion happens inside to string 
+
+------------------------------------------------------------------------
+Implicit coercion
+1) == operator (inplicitly type coerces)
+'1' === 1 ---> false (different data types)
+'1' == 1 --> true (left '1' is type coerced to number and then compares it with number 1 on the right)
+1 == true --> true
+3 == true --> true
+0 == false --> false
+
+comparing boolean with string with loose equality operator
+'1' == true --> true ( true is coerced to number 1 and then compared with '1')
+'100' == true --> false
+
+Note: when operands are objects (including arrays), == acts as ===
+(== considers two objects equal only if they are the same objects (same address in memory))
+let a = []
+a == [] --> false (different memory address)
+a == a --> true (same memory address)
+
+when one operand is primitive type and other operand is object, OBJECT IS COERCED TO PRIMITIVE BEFORE COMPARISON
+'' == {} -->  false
+'[object object]' == {} --> true
+
+Note: {}.toString() --> '[object object]'
+      [].toString() --> '' (empty object)
+
+Note: WHEN COMPARISON IS BETWEEN STRINGS AND NUMBERS, JS CONVERTS STRINGS TO NUMBERS
+[] == 0 --> true
+  (since [] is coerced to string(primitive type), which is '' empty string)
+  now, for '' == 0, '' is coerced to number 0 and compared with 0 which is true
+-----------------------------
+-----------------------------
+4 IMPORTANT RULES FOR coercion:
+1) number and string, string is coerced to number
+2) boolean and any other data type, boolean is coerced to number
+3) object and primitive data type, object is coerced to primitve datatype and then compared to other operand.
+4) undefined == null --> true
+---------------------------------
+---------------------------------
+
+Implicit Coercion with binary + operator
+--> IF ONE OF THE OPERANDS IS STRING, THE OTHER OPERAND IS COERCED TO STRING AND CONCATENATED WITH THE STRING.
+'number' + 1 --> 'number 1' (1 is coerced to string '1' and then concatenated)
+'' + [1,2,3] --> '1,2,3' (array is coerced to string)
+'' + undefined --> 'undefined'
+'' + {} --> '[object object]'
+
+for combination of null, undefined, number or boolean, they are converted to numbers and added togethr
+1 + true --> 2
+1 + false --> 1
+true + false --> 1
+null + false --> 0
+null + null --> 0
+1 + unfined --> NaN
+
+
+NOTE: WHEN ONE OF THE OPREAND IS OBJECT, IT IS COERCED TO STRING AND CONCATENTATED TOGETHER.
+[1] + 2 --> '12'
+[1] + '2' --> ('1' + '2') --> '12'
+[1,2] + 3 --> ('1,2' + 3) --> '1,23"
+[] + 5 --> ('' + 5) --> '5'
+[] + true --> ('' + true) --> 'true'
+42 + {} --> (42 + '[object object]') --> '42[object object]'
+
+Relational operators
+< > <= >= 
+1) for numbers  = numeric order
+2) for strings = lexicographic order
+
+NOTE: IF BOTH OF THE OPREANDS ARE STRINGS, THEY ARE COMPARED LEXICOGRAPHICALLY,
+IF ONE OF THE OPERAND IS NOT STRING, JS CONVERTS BOTH TO NUMBERS AND COMPARES THEM NUMERICALLY
+
+undefined >= 1 --> false 
+  (undefined = NaN, when coerced to number )
+  

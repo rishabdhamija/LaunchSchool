@@ -1,0 +1,144 @@
+Iterating with For and While Loop
+
+while Loop
+while (true) {
+    // loop body
+}
+
+break --> causes javascript to exit the nearest loop
+
+Iteration over collections
+1) Strings
+let str = 'hello'
+let counter = 0;
+while (counter < str.length) {
+    console.log(str[counter]);
+    counter += 1; 
+}
+
+using for loop
+for (let counter = 0; counter < str.length; counter++) {
+    console.log(str[counter]);
+}
+
+Note: an array can contain mixed javascript datatype values:
+const arr1 = [true, 10, 'hello'];
+
+For iteration over objects, use Object.keys() and Object.values() methods and use them to iterate
+for/in loop --> to iterate over objects
+
+let obj = {
+    a: 'foo',
+    b: 'bar'
+}
+for (let item in obj) {
+    console.log(`${obj[item]}`);
+}
+
+continue and Guard Clauses
+Question: display all even index numbers of the array
+let numbers = [1,2,3,4,5,6,7,8];
+for(let index = 0; index < numbers.length; index++) {
+    if (index %2 != 0) continue; --> guard Clauses
+    console.log(numbers[index]);
+}
+
+----------------------------------------------------------
+PEDAC
+P -> Understand the Problem
+E -> Examples / Test cases
+D -> Data Structure
+A -> Algorithm
+C -> Code
+
+--------------------------------------------------------------
+Selection and Transformation -> on collections
+selection -> picking elements of the collection based on one or more criteria.
+    Ex: pick out all the odd numbers in the array.
+Transformation --> manipulating every element in the collection.
+    EX: increment all members of array by 2.
+
+NOTE: when performing transformation, it is very important to note whether the 
+original collection is mutated or a new collection is returned.
+
+function doubleNumberV2(numbers) {
+    for (let index = 0; index < numbers.length; index++) {
+        numbers[index] = Math.pow(numbers[index] , 2);
+    }
+    return numbers;
+}
+
+const numbers = [10,20,30];
+console.log("numbers before doubled " , numbers); --> returns [10,20,30]
+console.log("numbers after doubled" , doubleNumberV2(numbers));
+console.log("original numbers", numbers) --> returns [100, 400, 900]
+
+Considering the transformation function above, it returns a reference to the original
+mutated array, and not the copy of the original array.
+
+Identity Transformation :  a function that transforms a collection (such as array) 
+by only some elements such as some elements are left unchanged.
+
+Question: doubling elements only at odd indexes (identity transformation)
+function doubleOdd (numbers) {
+    let doubleNumbers = [];
+    for (let index = 0; index < numbers.length; index++) {
+        if (index %2 === 1) doubleNumbers[index] = numbers[index];
+        else doubleNumbers[index] = Math.pow(numbers[index], 2);
+    }
+    return doubleNumbers;
+}
+
+----------------------------------------------------------------------------------------------
+Array Methods:
+1) Array.prototype.forEach
+
+[1,2,3].forEach(element => console.log(element));
+    -> there is a second argument to the forEach element, the index of the current element.
+
+[1,2,3,4].forEach((element, index) => console.log(`The element at index ${index} is ${element}`))
+
+NOTE: JS strings don't have a forEach method, so use split('') followed by forEach() method.
+'abcde'.split('').forEach(letter => console.log(letter));
+
+NOTE: objects in JS don't have the forEach method as well.
+Solution: use Object.keys(), Object.values() and Object.entries() methods to convert Object into array
+
+
+Array destructuring assignment:
+Object.entries(obj) --> returns an array of arrays, each subarray being an array of 2 items, key and value:
+let [key, value] = item; --> array destructuring
+
+NOTE IMPORTANT: forEach always returns undefined.
+
+2) Array.prototype.filter -> to select / filter certain elements from the array to work with them separately.
+
+Ex: return odd elements from the array into a new Array
+let arr = [1,2,3,4,5,6,7];
+arr.filter(item => item % 2 === 1)
+    -> filter() method examines the truthiness of the return value of the callback function each time.
+    -> filter() method performs selection based on the truthiness of the callback's return value.
+    -> filter() returns a new array with the values satisfying truthiness of callback.
+
+NOTE: IF THE CALLBACK DOESN'T RETURN A VALUE, THE IMPLICIT RETURN VALUE IS undefined, WHICH IS FALSY IN NATURE.
+
+3) Array.prototype.map() function
+    --> map() method uses the return value of the callback functon to perform transformation.
+ex: [1,2,3].map(num => num * 2); --> returns [2,4,6]
+
+the return value of each callback function can also be boolean as well as undefined, in case of no return value.
+[1,2,3].map(item => item %2 === 1); --> returns [true, false, true]
+[1,2,3].map(item => console.log(item)); --> returns [undefined, undefined, undefined]
+
+For strings, use strings.split() to convert to array and array.join() to convert to strings
+
+question: select all vowels in the string and return it as a single string
+function vowelString(str) {
+    const strArray = str.split('');
+    let vowelArr = [];
+    const vowels = ['a','e','i','o','u','A','E', 'I', 'O','U' ];
+    vowelArr = strArray.filter(letter => vowels.includes(letter))
+    return vowelArr.join('');
+}
+
+console.log(vowelString("What's up, Doc?"));

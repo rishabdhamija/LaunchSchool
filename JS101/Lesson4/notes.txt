@@ -142,3 +142,32 @@ function vowelString(str) {
 }
 
 console.log(vowelString("What's up, Doc?"));
+
+-----------------------------------------------------------------------------------------------
+More Array Methods:
+
+1) Array.prototype.some() 
+    -> of all the return values of the callback functions, it checks is any of the return value is true.
+[1,2,3].some(num => num > 2); ---> returns true
+    --> the return values of the callback functions are : false, false , true 
+    --> one of the return values is true, so the final answer is true.
+[1,2,3].some(num => num > 4); --> returns false
+
+2) Array.prototype.every()
+    -> checks if every single value returned by callback function is true.
+[10,20,30].every(num => num > 5);
+
+3) Array.prototype.find()
+    -> checks the callback function for the true value and returns the first value for which callback is true.
+[10, 20, 30 ].find(num => num > 10); --> returns 20
+[10, 20, 30].find(num =>  num < 5); --> returns undefined
+
+4) Array.prototype.findIndex()
+    -> same as find() but returns the first Index of the found element
+[10, 20, 30].findIndex(num =>  num > 15); // returns 1
+Note: findIndex() returns -1 if the index is not found
+
+5) Array.prototype.reverse()
+    -> reverses the elements of the array
+    -> NOTE: it is destructive in action as it mutates the original array
+    
